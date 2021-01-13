@@ -1,11 +1,14 @@
 import /init.recovery.microtrust.rc
-on fs
-    install_keyring
-    setprop crypto.ready 1
+
+on early-fs
+    start vold
 
 on fs
+    install_keyring
     start hwservicemanager
     start servicemanager
+
+    setprop crypto.ready 1
 
 service hwservicemanager /sbin/hwservicemanager
     user root
